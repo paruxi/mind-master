@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mastermind</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game">
+      <h1>Mastermind</h1>
+      <p class="rules">
+        Guess the 4-color code in 10 tries. Black peg = right color, right spot.
+        White peg = right color, wrong spot.
+      </p>
+
+      <!-- Secret code: hidden until game ends -->
+      <section class="secret" id="secret">
+        <div class="peg hidden"></div>
+        <div class="peg hidden"></div>
+        <div class="peg hidden"></div>
+        <div class="peg hidden"></div>
+      </section>
+
+      <!-- Board: 10 rows. Row 1 at bottom (column-reverse in CSS) -->
+      <section class="board" id="board">
+        <div class="row" data-row="0">
+          <span class="row-num">1</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="1">
+          <span class="row-num">2</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="2">
+          <span class="row-num">3</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="3">
+          <span class="row-num">4</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="4">
+          <span class="row-num">5</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="5">
+          <span class="row-num">6</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="6">
+          <span class="row-num">7</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="7">
+          <span class="row-num">8</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="8">
+          <span class="row-num">9</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+        <div class="row" data-row="9">
+          <span class="row-num">10</span>
+          <div class="guess">
+            <div class="peg" data-slot="0"></div>
+            <div class="peg" data-slot="1"></div>
+            <div class="peg" data-slot="2"></div>
+            <div class="peg" data-slot="3"></div>
+          </div>
+          <div class="feedback">
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+            <div class="mini"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Color picker -->
+      <section class="palette" id="palette">
+        <button class="color-btn" data-color="red" aria-label="Red"></button>
+        <button class="color-btn" data-color="blue" aria-label="Blue"></button>
+        <button
+          class="color-btn"
+          data-color="green"
+          aria-label="Green"
+        ></button>
+        <button
+          class="color-btn"
+          data-color="yellow"
+          aria-label="Yellow"
+        ></button>
+        <button
+          class="color-btn"
+          data-color="purple"
+          aria-label="Purple"
+        ></button>
+        <button
+          class="color-btn"
+          data-color="orange"
+          aria-label="Orange"
+        ></button>
+      </section>
+
+      <!-- Controls -->
+      <section class="controls">
+        <button id="undo-btn">Undo</button>
+        <button id="submit-btn">Check guess</button>
+        <button id="new-game-btn">New game</button>
+      </section>
+
+      <p class="message" id="message">Pick 4 colors, then check your guess.</p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
