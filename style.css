@@ -1,0 +1,203 @@
+/* ===== Variables ===== */
+:root {
+  /* peg colors */
+  --red: #e53935;
+  --blue: #1e88e5;
+  --green: #43a047;
+  --yellow: #fdd835;
+  --purple: #8e24aa;
+  --orange: #fb8c00;
+
+  /* feedback colors */
+  --hit: #000000; /* right color, right spot */
+  --near: #ffffff; /* right color, wrong spot */
+
+  /* ui colors */
+  --bg: #f2f2f2;
+  --board: #c9c4ba;
+  --hole: #7b7265;
+  --border: #333333;
+  --active: #ffffff;
+  --text: #222222;
+
+  /* sizes */
+  --peg-size: 32px;
+  --mini-size: 12px;
+  --gap: 8px;
+}
+
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.game {
+  max-width: 360px;
+  margin: 20px auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.rules {
+  font-size: 14px;
+}
+
+/* ===== Pegs ===== */
+.peg {
+  width: var(--peg-size);
+  height: var(--peg-size);
+  border-radius: 50%;
+  background: var(--hole);
+  border: 2px solid var(--border);
+}
+
+.mini {
+  width: var(--mini-size);
+  height: var(--mini-size);
+  border-radius: 50%;
+  background: var(--hole);
+  border: 1px solid var(--border);
+}
+
+/* color classes JS will add */
+.red {
+  background: var(--red);
+}
+.blue {
+  background: var(--blue);
+}
+.green {
+  background: var(--green);
+}
+.yellow {
+  background: var(--yellow);
+}
+.purple {
+  background: var(--purple);
+}
+.orange {
+  background: var(--orange);
+}
+
+.hit {
+  background: var(--hit);
+}
+.near {
+  background: var(--near);
+}
+
+.hidden {
+  background: var(--border);
+}
+
+/* ===== Secret row ===== */
+.secret {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+  padding: 10px;
+  margin-bottom: 10px;
+  background: var(--board);
+  border: 2px solid var(--border);
+}
+
+/* ===== Board ===== */
+.board {
+  display: flex;
+  flex-direction: column-reverse; /* row 1 at bottom */
+  gap: 4px;
+  padding: 10px;
+  background: var(--board);
+  border: 2px solid var(--border);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.row.active {
+  outline: 2px solid var(--active);
+}
+
+.row-num {
+  width: 24px;
+}
+
+.guess {
+  display: flex;
+  gap: var(--gap);
+}
+
+.feedback {
+  display: grid;
+  grid-template-columns: repeat(2, var(--mini-size));
+  gap: 3px;
+}
+
+/* ===== Palette ===== */
+.palette {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+  margin: 15px 0;
+}
+
+.color-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+}
+
+.color-btn[data-color="red"] {
+  background: var(--red);
+}
+.color-btn[data-color="blue"] {
+  background: var(--blue);
+}
+.color-btn[data-color="green"] {
+  background: var(--green);
+}
+.color-btn[data-color="yellow"] {
+  background: var(--yellow);
+}
+.color-btn[data-color="purple"] {
+  background: var(--purple);
+}
+.color-btn[data-color="orange"] {
+  background: var(--orange);
+}
+
+/* ===== Controls ===== */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.controls button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.message {
+  min-height: 20px;
+  font-weight: bold;
+}
