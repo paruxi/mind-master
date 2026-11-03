@@ -4,13 +4,14 @@ const codeColors = ["red", "blue", "green", "yellow", "purple", "orange"];
 // The secret code always has 4 positions.
 const CODE_LENGTH = 4;
 
+// All the data for the current game lives in this one object.
 const game = {
-  secretCode: [],
-  guesses: [], //10 guesses
-  currentGuess: [],
+  secretCode: [], // the hidden 4 colors, filled in by startGame()
+  guesses: [], // the guesses the player has submitted (up to 10)
+  currentGuess: [], // the colors picked so far in the current row
   maxAttempts: 10,
-  status: "playing",
-  bestScore: null,
+  status: "playing", // "playing", "won", or "lost"
+  bestScore: null, // fewest attempts to win; kept between rounds
 };
 
 // Returns a brand-new array with CODE_LENGTH random colors.
@@ -28,4 +29,14 @@ function generateSecretCode() {
   return code;
 }
 
-console.log(game.secretCode);
+// Starts a new round: a new secret code, and empty guesses.
+// bestScore is not changed, so it survives between rounds.
+function startGame() {
+  game.secretCode = generateSecretCode();
+  game.guesses = [];
+  game.currentGuess = [];
+  game.status = "playing";
+}
+
+// Start the first round as soon as the page loads.
+startGame();
