@@ -10,18 +10,20 @@ const game = {
   maxAttempts: 10,
   status: "playing",
   bestScore: null,
+  selectedPeg: null,
 }
 const guess = document.querySelector(".guess")
 const selectedPeg = guess.querySelectorAll(".peg")
 const colorButton = document.querySelector(".color-btn")
 const row = document.querySelector(".row")
 const palette = document.getElementById("palette")
-
-const gameState = {
-  row: 0,
-  pegs: null,
-  guess: [null, null, null, null],
-}
+const submit = document.getElementById("submit-btn")
+const message = document.getElementById("message")
+// const gameState = {
+//   row: 0,
+//   selectedPeg: null,
+//   guess: [null, null, null, null],
+// }
 
 // Returns a brand-new array with CODE_LENGTH random colors.
 // Each position is picked on its own, so the same color can appear more than once.
@@ -48,22 +50,35 @@ guess.addEventListener("click", function (event) {
   if (!choice) return
   selectedPeg.forEach((el) => el.classList.remove("selected-peg"))
   choice.classList.toggle("selected-peg")
-  gameState.selectedPeg = choice
+  game.selectedPeg = choice
   console.log(choice.dataset.slot)
 })
 
 palette.addEventListener("click", function (event) {
   const colorPicker = event.target.closest(".color-btn")
   if (!colorPicker) return
-  if (!gameState.selectedPeg) return
+  if (!game.selectedPeg) return
   console.log(colorPicker.dataset.color)
   const color = colorPicker.dataset.color
 
-  gameState.selectedPeg.style.background = `var(--${color})`
-  gameState.selectedPeg.dataset.color = color
+  game.selectedPeg.style.background = `var(--${color})`
+  game.selectedPeg.dataset.color = color
+  console.log(color)
+  const index = Number(game.selectedPeg.dataset.slot)
+  game.currentGuess[index] = color
+  console.log("index:", index, "guess:", game.currentGuess)
+})
 
-  const index = Number(gameState.selectedPeg.dataset.number)
-  gameState.guess[index] = color
+submit.addEventListener("click", function (event) {
+  event.preventDefault()
+  if (game.currentGuess.length !== 4) {
+    message.textContent = "Pick all 4 colors before check!"
+    message.style.color = "red"
+    console.log("error")
+    return
+  }
+  game.guesses.push(game.currentGuess)
+  console.log(game.guesses)
 })
 
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
