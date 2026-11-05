@@ -16,7 +16,9 @@
   --bg: #f2f2f2;
   --board: #c9c4ba;
   --hole: #7b7265;
+  --selectedHole: #4d483f;
   --border: #333333;
+  --selectedBorder: #000000;
   --active: #ffffff;
   --text: #222222;
 
@@ -56,6 +58,13 @@ body {
   border-radius: 50%;
   background: var(--hole);
   border: 2px solid var(--border);
+}
+.selected-peg {
+  width: var(--peg-size);
+  height: var(--peg-size);
+  border-radius: 50%;
+  background: var(--selectedHole);
+  border: 3px solid var(--selectedBorder);
 }
 
 .mini {
