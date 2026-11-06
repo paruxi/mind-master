@@ -18,6 +18,7 @@ const colorButton = document.querySelector(".color-btn")
 const palette = document.getElementById("palette")
 const submit = document.getElementById("submit-btn")
 const message = document.getElementById("message")
+let clickController = new AbortController()
 
 // Returns a brand-new array with CODE_LENGTH random colors.
 // Each position is picked on its own, so the same color can appear more than once.
@@ -95,6 +96,30 @@ submit.addEventListener("click", function (event) {
   startNextRow()
 })
 
-function startNextRow() {}
+function startNextRow() {
+  game.currentGuess = []
+
+  // deselect previous peg
+  game.selectedPeg.classList.remove("selected-peg")
+  clickController.abort()
+  clickController = new AbortController()
+  // move row
+  const rowNumber = game.guesses.length
+  const nextRow = document.querySelector(`div.row[data-row="${rowNumber}"]`)
+  game.currentRow = nextRow
+  game.currentRow.addEventListener(
+    "click",
+    function (event) {
+      onClickCurrentRow(event)
+    },
+    { signal: clickController.signal },
+  )
+
+  // select first peg in new row
+  const nextPeg = nextRow.querySelector('[data-slot="0"]')
+  nextPeg.classList.add("selected-peg")
+  game.selectedPeg = nextPeg
+}
+
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
 startGame()
