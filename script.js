@@ -14,17 +14,10 @@ const game = {
   currentRow: null,
 }
 const guess = document.querySelector(".guess")
-// const selectedPeg = guess.querySelectorAll(".peg")
 const colorButton = document.querySelector(".color-btn")
-// const row = document.querySelector(".row")
 const palette = document.getElementById("palette")
 const submit = document.getElementById("submit-btn")
 const message = document.getElementById("message")
-// const gameState = {
-//   row: 0,
-//   selectedPeg: null,
-//   guess: [null, null, null, null],
-// }
 
 // Returns a brand-new array with CODE_LENGTH random colors.
 // Each position is picked on its own, so the same color can appear more than once.
@@ -44,6 +37,14 @@ function startGame() {
   game.guesses = []
   game.currentGuess = []
   game.status = "playing"
+  game.currentRow = document.querySelector('div.row[data-row="0"]')
+  game.currentRow.addEventListener(
+    "click",
+    function (event) {
+      onClickCurrentRow(event)
+    },
+    { signal: clickController.signal },
+  )
 }
 
 // guess.addEventListener("click", function (event) {
