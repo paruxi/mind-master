@@ -11,11 +11,12 @@ const game = {
   status: "playing",
   bestScore: null,
   selectedPeg: null,
+  currentRow: null,
 }
 const guess = document.querySelector(".guess")
-const selectedPeg = guess.querySelectorAll(".peg")
+// const selectedPeg = guess.querySelectorAll(".peg")
 const colorButton = document.querySelector(".color-btn")
-const row = document.querySelector(".row")
+// const row = document.querySelector(".row")
 const palette = document.getElementById("palette")
 const submit = document.getElementById("submit-btn")
 const message = document.getElementById("message")
@@ -45,14 +46,25 @@ function startGame() {
   game.status = "playing"
 }
 
-guess.addEventListener("click", function (event) {
+// guess.addEventListener("click", function (event) {
+//   const choice = event.target.closest(".peg")
+//   if (!choice) return
+//   selectedPeg.forEach((el) => el.classList.remove("selected-peg"))
+//   choice.classList.toggle("selected-peg")
+//   game.selectedPeg = choice
+//   console.log(choice.dataset.slot)
+// })
+
+function onClickCurrentRow(event) {
   const choice = event.target.closest(".peg")
+  console.log("choice:", choice)
   if (!choice) return
-  selectedPeg.forEach((el) => el.classList.remove("selected-peg"))
+  const rowPegs = game.currentRow.querySelectorAll(".peg")
+  rowPegs.forEach((el) => el.classList.remove("selected-peg"))
   choice.classList.toggle("selected-peg")
   game.selectedPeg = choice
   console.log(choice.dataset.slot)
-})
+}
 
 palette.addEventListener("click", function (event) {
   const colorPicker = event.target.closest(".color-btn")
@@ -79,7 +91,9 @@ submit.addEventListener("click", function (event) {
   }
   game.guesses.push(game.currentGuess)
   console.log(game.guesses)
+  startNextRow()
 })
 
+function startNextRow() {}
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
 startGame()
