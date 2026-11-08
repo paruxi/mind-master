@@ -85,12 +85,15 @@ palette.addEventListener("click", function (event) {
 
 submit.addEventListener("click", function (event) {
   event.preventDefault()
-  if (game.currentGuess.length !== 4) {
+  console.log("currentguess:", game.currentGuess)
+  if (game.currentGuess.includes(undefined) || game.currentGuess.length !== 4) {
     message.textContent = "Pick all 4 colors before check!"
     message.style.color = "red"
     console.log("error")
     return
   }
+  message.textContent = "Pick 4 colors, then check your guess."
+  message.style.color = ""
   game.guesses.push(game.currentGuess)
   console.log(game.guesses)
   startNextRow()
