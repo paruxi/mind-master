@@ -20,6 +20,8 @@ const submit = document.getElementById("submit-btn")
 const message = document.getElementById("message")
 let clickController = new AbortController()
 
+const attemptsNumber = document.getElementById("attemptsNumber")
+const attemptMessage = document.getElementById("attemptMessage")
 // Returns a brand-new array with CODE_LENGTH random colors.
 // Each position is picked on its own, so the same color can appear more than once.
 function generateSecretCode() {
@@ -87,6 +89,7 @@ submit.addEventListener("click", function (event) {
   message.style.color = ""
   game.guesses.push(game.currentGuess)
   console.log(game.guesses)
+  handleAttempts()
   startNextRow()
 })
 
@@ -114,6 +117,29 @@ function startNextRow() {
   nextPeg.classList.add("selected-peg")
   game.selectedPeg = nextPeg
 }
+function handleAttempts() {
+  const currentAttemptNumber = game.guesses.length
+  if (currentAttemptNumber <= 2 && game.currentGuess === game.secretCode) {
+    attemptMessage.textContent = "You won!"
+    attemptMessage.style.color = "green"
+    // bestScore = currentAttemptNumber
+  }
+
+  if (currentAttemptNumber === 2 && game.currentGuess !== game.secretCode) {
+    console.log()
+    attemptMessage.textContent = "You lost!"
+    attemptMessage.style.color = "red"
+    return
+  }
+
+  if (currentAttemptNumber < 2 && game.currentGuess !== game.secretCode) {
+    attemptsNumber.textContent = currentAttemptNumber
+    return
+  }
+}
+
+let bestScore
 
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
 startGame()
+console.log(game.secretCode)

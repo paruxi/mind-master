@@ -50,7 +50,15 @@ body {
 .rules {
   font-size: 14px;
 }
-
+#attemptMessage {
+  padding-bottom: 15px;
+  font-weight: 600;
+}
+#bestScore {
+  color: #1005ac;
+  padding-bottom: 20px;
+  font-size: medium;
+}
 /* ===== Pegs ===== */
 .peg {
   width: var(--peg-size);
