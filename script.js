@@ -48,15 +48,6 @@ function startGame() {
   )
 }
 
-// guess.addEventListener("click", function (event) {
-//   const choice = event.target.closest(".peg")
-//   if (!choice) return
-//   selectedPeg.forEach((el) => el.classList.remove("selected-peg"))
-//   choice.classList.toggle("selected-peg")
-//   game.selectedPeg = choice
-//   console.log(choice.dataset.slot)
-// })
-
 function onClickCurrentRow(event) {
   const choice = event.target.closest(".peg")
   console.log("choice:", choice)
