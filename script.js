@@ -117,22 +117,36 @@ function startNextRow() {
   nextPeg.classList.add("selected-peg")
   game.selectedPeg = nextPeg
 }
+
+//compares the current guess array and secret code array
+function codesMatch(currentGuess, secretCode) {
+  return (
+    currentGuess.length === secretCode.length &&
+    currentGuess.every((color, i) => color === secretCode[i])
+  )
+}
+
 function handleAttempts() {
   const currentAttemptNumber = game.guesses.length
-  if (currentAttemptNumber <= 2 && game.currentGuess === game.secretCode) {
+  if (
+    currentAttemptNumber <= 2 &&
+    codesMatch(game.currentGuess, game.secretCode)
+  ) {
     attemptMessage.textContent = "You won!"
     attemptMessage.style.color = "green"
+    return
     // bestScore = currentAttemptNumber
   }
 
-  if (currentAttemptNumber === 2 && game.currentGuess !== game.secretCode) {
-    console.log()
+  if (currentAttemptNumber === 2 && game.currentGuess != game.secretCode) {
+    console.log("test:", game.currentGuess)
+    console.log(game.secretCode)
     attemptMessage.textContent = "You lost!"
     attemptMessage.style.color = "red"
     return
   }
 
-  if (currentAttemptNumber < 2 && game.currentGuess !== game.secretCode) {
+  if (currentAttemptNumber < 2 && game.currentGuess != game.secretCode) {
     attemptsNumber.textContent = currentAttemptNumber
     return
   }
