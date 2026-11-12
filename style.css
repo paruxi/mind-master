@@ -233,3 +233,55 @@ button:disabled {
   min-height: 20px;
   font-weight: bold;
 }
+
+/* ===== Symbols for colorblind players ===== */
+.peg,
+.color-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.peg::after,
+.color-btn::after {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+  text-shadow: 0 0 2px #000000;
+}
+
+.peg[data-color="red"]::after,
+.peg.red::after,
+.color-btn[data-color="red"]::after {
+  content: "▲";
+}
+
+.peg[data-color="blue"]::after,
+.peg.blue::after,
+.color-btn[data-color="blue"]::after {
+  content: "■";
+}
+
+.peg[data-color="green"]::after,
+.peg.green::after,
+.color-btn[data-color="green"]::after {
+  content: "●";
+}
+
+.peg[data-color="yellow"]::after,
+.peg.yellow::after,
+.color-btn[data-color="yellow"]::after {
+  content: "★";
+}
+
+.peg[data-color="purple"]::after,
+.peg.purple::after,
+.color-btn[data-color="purple"]::after {
+  content: "◆";
+}
+
+.peg[data-color="orange"]::after,
+.peg.orange::after,
+.color-btn[data-color="orange"]::after {
+  content: "✚";
+}
