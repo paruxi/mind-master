@@ -18,7 +18,7 @@ describe("index.html", () => {
   });
 
   it("loads the files in the order they depend on each other", () => {
-    const order = ["feedback.js", "game-status.js", "board.js", "game-flow.js", "new-game.js", "undo.js"];
+    const order = ["feedback.js", "game-status.js", "board.js", "attempt-progress.js", "game-flow.js", "new-game.js", "undo.js"];
     const positions = order.map((file) => scripts.indexOf(file));
 
     assert.ok(positions.every((position) => position > 0), "a game file is not loaded");
@@ -28,7 +28,7 @@ describe("index.html", () => {
   it("has every element the game uses", () => {
     const ids = [
       "board", "secret", "palette", "undo-btn", "submit-btn", "new-game-btn",
-      "message", "attemptMessage", "attemptsNumber", "scoreCounter",
+      "message", "attemptMessage", "attemptsNumber", "scoreCounter", "progress",
     ];
 
     for (const id of ids) {
@@ -44,6 +44,10 @@ describe("index.html", () => {
 
   it("has a hidden secret peg for each position of the code", () => {
     assert.equal((html.match(/class="peg hidden"/g) || []).length, 4);
+  });
+
+  it("has 10 progress steps, one for each attempt", () => {
+    assert.equal((html.match(/class="progress-step"/g) || []).length, 10);
   });
 
   it("has a button for each of the six colors", () => {

@@ -20,16 +20,16 @@ function setUp({ status = "playing" } = {}) {
   };
   const calls = [];
   const oldController = new AbortController();
-  const attemptsNumber = createFakeElement();
+  const attemptMessageContent = [createFakeElement(), createFakeElement()];
+  page.document.getElementById("attemptMessage").childNodes = attemptMessageContent;
 
   const functions = loadBrowserFile(
-    ["board.js", "new-game.js"],
+    ["board.js", "attempt-progress.js", "new-game.js"],
     ["resetGame", "clickController"],
     {
       game,
       document: page.document,
       codeColors: COLORS,
-      attemptsNumber,
       clickController: oldController,
       startGame: () => {
         calls.push("startGame");
@@ -41,7 +41,7 @@ function setUp({ status = "playing" } = {}) {
     },
   );
 
-  return { game, calls, oldController, attemptsNumber, ...page, ...functions };
+  return { game, calls, oldController, attemptMessageContent, ...page, ...functions };
 }
 
 describe("resetGame()", () => {
@@ -125,17 +125,29 @@ describe("resetGame()", () => {
     assert.equal(message.style.color, "");
   });
 
-  it("restores the attempt counter, using the same #attemptsNumber element", () => {
-    const { document, attemptsNumber, resetGame } = setUp();
+  it("puts back the original attempt counter content", () => {
+    const { document, attemptMessageContent, resetGame } = setUp();
     const attemptMessage = document.getElementById("attemptMessage");
     attemptMessage.style.color = "green";
-    attemptsNumber.textContent = "7";
+    attemptMessage.childNodes = ["Nice Job! You solved it in 3 attempts"];
+    document.getElementById("attemptsNumber").textContent = "7";
 
     resetGame();
 
-    assert.deepEqual(attemptMessage.children, ["Attempt ", attemptsNumber, " /10"]);
-    assert.equal(attemptsNumber.textContent, " 1 ");
+    assert.deepEqual(attemptMessage.childNodes, attemptMessageContent);
+    assert.equal(document.getElementById("attemptsNumber").textContent, "1");
     assert.equal(attemptMessage.style.color, "");
+  });
+
+  it("restarts the progress bar and lights the first row", () => {
+    const { game, progressSteps, rows, resetGame } = setUp();
+    game.guesses = [["red", "red", "red", "red"]];
+
+    resetGame();
+
+    assert.ok(progressSteps[0].classList.contains("current"));
+    assert.ok(!progressSteps[0].classList.contains("done"));
+    assert.ok(rows[0].classList.contains("active"));
   });
 });
 

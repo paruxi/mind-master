@@ -1,7 +1,11 @@
 // Loaded after script.js. Starts a fresh round at any time.
-// Uses startGame(), clickController, attemptsNumber and game from script.js.
+// Uses startGame(), clickController and game from script.js.
 
 const DEFAULT_MESSAGE = "Pick 4 colors, then check your guess."
+
+// script.js replaces the text of #attemptMessage when the game ends.
+// Keep what was there at the start, so it can be put back.
+const attemptMessageContent = [...document.getElementById("attemptMessage").childNodes]
 
 function resetMessages() {
   const message = document.getElementById("message")
@@ -10,11 +14,10 @@ function resetMessages() {
   message.textContent = DEFAULT_MESSAGE
   message.style.color = ""
 
-  // script.js replaces this text when the game ends, which removes the number from it.
-  // Put the same #attemptsNumber element back so script.js can keep updating it.
+  // The same nodes go back, so #attemptsNumber is the element script.js keeps updating.
   attemptMessage.style.color = ""
-  attemptMessage.replaceChildren("Attempt ", attemptsNumber, " /10")
-  attemptsNumber.textContent = " 1 "
+  attemptMessage.replaceChildren(...attemptMessageContent)
+  document.getElementById("attemptsNumber").textContent = "1"
 }
 
 function resetGame() {
@@ -29,6 +32,7 @@ function resetGame() {
   clearBoard()
   renderSecret()
   resetMessages()
+  renderAttemptProgress()
 }
 
 document.getElementById("new-game-btn").addEventListener("click", resetGame)

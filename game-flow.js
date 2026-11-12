@@ -21,6 +21,7 @@ function gradeLatestGuess() {
   checkWin()
   checkLoss()
   renderSecret()
+  renderAttemptProgress()
 }
 
 // Runs before any other click listener (capture phase) and stops the click

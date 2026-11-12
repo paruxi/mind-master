@@ -10,9 +10,9 @@ function createFakeElement() {
     listeners,
     style: {},
     textContent: "",
-    children: [],
+    childNodes: [],
     replaceChildren(...nodes) {
-      this.children = nodes;
+      this.childNodes = nodes;
     },
     classList: {
       add: (name) => classes.add(name),
@@ -63,6 +63,7 @@ function createFakePage() {
     return row;
   });
 
+  const progressSteps = createFakeElements(10);
   const secretPegs = createFakeElements(4);
   secretPegs.forEach((peg) => peg.classList.add("hidden"));
 
@@ -82,6 +83,7 @@ function createFakePage() {
     querySelectorAll: (selector) => {
       if (selector === "#secret .peg") return secretPegs;
       if (selector === ".row") return rows;
+      if (selector === "#progress .progress-step") return progressSteps;
       return [];
     },
     getElementById: (id) => {
@@ -90,7 +92,7 @@ function createFakePage() {
     },
   };
 
-  return { rows, secretPegs, elementsById, document };
+  return { rows, secretPegs, progressSteps, elementsById, document };
 }
 
 const PEG_COLORS = ["red", "blue", "green", "yellow", "purple", "orange"];

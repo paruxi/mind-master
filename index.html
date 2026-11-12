@@ -4,44 +4,125 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="Assets/mind-master-logo.svg" />
-    <title>Mastermind</title>
+    <title>Mind Master</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
     <script src="feedback.js" defer></script>
     <script src="game-status.js" defer></script>
     <script src="board.js" defer></script>
+    <script src="attempt-progress.js" defer></script>
     <script src="game-flow.js" defer></script>
     <script src="new-game.js" defer></script>
     <script src="undo.js" defer></script>
   </head>
   <body>
     <main class="game">
-      <h1>Mastermind</h1>
-      <section class="how-to-play">
+      <header class="top">
+        <div>
+          <p class="eyebrow">Code breaker</p>
+          <h1>Mind<em>Master</em></h1>
+        </div>
+        <div class="top-actions">
+          <button
+            class="icon-btn"
+            popovertarget="how-to-play"
+            aria-label="How to play"
+          >
+            ?
+          </button>
+          <button class="icon-btn" id="new-game-btn" aria-label="New game">
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+              <path d="M21 3v6h-6" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="how-to-play" id="how-to-play" popover>
         <h2>How to play</h2>
         <ol>
-          <li>Crack the secret code: 4 colors from red, blue, green, yellow, purple and orange.</li>
-          <li>Click a slot in the lit row, then click a color. Undo clears the last color.</li>
+          <li>
+            Crack the secret code: 4 colors from red, blue, green, yellow,
+            purple and orange.
+          </li>
+          <li>
+            Click a slot in the lit row, then click a color. Undo clears the
+            last color.
+          </li>
           <li>Press "Check guess" to get clues in the small pegs.</li>
-          <li>Black peg: right color, right spot. White peg: right color, wrong spot.</li>
+          <li>
+            Black peg: right color, right spot. White peg: right color, wrong
+            spot.
+          </li>
           <li>Colors can repeat. You have 10 attempts.</li>
         </ol>
       </section>
-      <div id="attemptMessage">
-        Attempt <span id="attemptsNumber"> 1 </span> /10
-      </div>
-      <div id="bestScore">
-        🏅Best Score: <span id="scoreCounter">No score yet</span>
-      </div>
-      <!-- Secret code: hidden until game ends -->
-      <section class="secret" id="secret">
-        <div class="peg hidden"></div>
-        <div class="peg hidden"></div>
-        <div class="peg hidden"></div>
-        <div class="peg hidden"></div>
+
+      <section class="status">
+        <div id="attemptMessage">
+          <span class="label">Attempt</span>
+          <span class="attempt-count"
+            ><span id="attemptsNumber">1</span> of 10</span
+          >
+        </div>
+        <div id="bestScore">
+          <span class="label">Best score</span>
+          <span id="scoreCounter">No score yet</span>
+        </div>
       </section>
 
-      <!-- Board: 10 rows. Row 1 at bottom (column-reverse in CSS) -->
+      <div class="progress" id="progress" aria-hidden="true">
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+        <span class="progress-step"></span>
+      </div>
+
+      <!-- Secret code: hidden until game ends -->
+      <section class="secret" id="secret">
+        <span class="secret-label">
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="4" y="11" width="16" height="10" rx="2" />
+            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+          </svg>
+          Secret code
+        </span>
+        <div class="secret-pegs">
+          <div class="peg hidden"></div>
+          <div class="peg hidden"></div>
+          <div class="peg hidden"></div>
+          <div class="peg hidden"></div>
+        </div>
+      </section>
+
+      <!-- Board: 10 rows, row 1 at the bottom (column-reverse in CSS) -->
       <section class="board" id="board">
         <div class="row" data-row="0">
           <span class="row-num">1</span>
@@ -195,6 +276,11 @@
         </div>
       </section>
 
+      <p class="legend">
+        <span><i class="legend-dot hit"></i> Right color, right spot</span>
+        <span><i class="legend-dot near"></i> Right color, wrong spot</span>
+      </p>
+
       <!-- Color picker -->
       <section class="palette" id="palette">
         <button class="color-btn" data-color="red" aria-label="Red"></button>
@@ -223,9 +309,24 @@
 
       <!-- Controls -->
       <section class="controls">
-        <button id="undo-btn">Undo</button>
+        <button id="undo-btn">
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 14 4 9l5-5" />
+            <path d="M4 9h10a6 6 0 0 1 0 12h-3" />
+          </svg>
+          Undo
+        </button>
         <button id="submit-btn">Check guess</button>
-        <button id="new-game-btn">New game</button>
       </section>
 
       <p class="message" id="message">Pick 4 colors, then check your guess.</p>
