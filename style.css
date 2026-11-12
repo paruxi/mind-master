@@ -542,3 +542,125 @@ h1 em {
   content: "✚";
   color: var(--orange-ink);
 }
+
+/* ===== Result panel (opens when a round ends) ===== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.result-panel {
+  width: min(340px, calc(100% - 40px));
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--gold-dim);
+  border-radius: 22px;
+  animation: panel-in 0.35s ease-out;
+}
+
+.result-panel::backdrop {
+  background: rgba(5, 8, 18, 0.75);
+}
+
+.result-icon {
+  font-size: 34px;
+  color: var(--gold);
+}
+
+.result-panel h2 {
+  margin: 4px 0 8px;
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--gold);
+}
+
+.result-panel p {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+.result-code {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 14px 0 20px;
+}
+
+.result-code .peg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+#play-again-btn {
+  width: 100%;
+  height: 52px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gold);
+  background: #28221a;
+  border: 1px solid var(--gold-dim);
+  border-radius: 26px;
+}
+
+/* ===== End-of-game effects ===== */
+.secret .peg:not(.hidden) {
+  animation: reveal-peg 0.5s ease-out;
+}
+
+.game.result-won .secret {
+  animation: win-glow 1.6s ease-out;
+}
+
+.game.result-lost .board {
+  filter: brightness(0.7);
+  animation: soft-shake 0.5s ease-in-out;
+}
+
+@keyframes reveal-peg {
+  from {
+    transform: scale(0.4) rotateY(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes win-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(227, 184, 102, 0);
+  }
+  40% {
+    box-shadow: 0 0 28px 6px rgba(227, 184, 102, 0.7);
+  }
+}
+
+@keyframes soft-shake {
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes panel-in {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-panel,
+  .secret .peg:not(.hidden),
+  .game.result-won .secret,
+  .game.result-lost .board {
+    animation: none;
+  }
+}

@@ -14,6 +14,7 @@
     <script src="game-flow.js" defer></script>
     <script src="new-game.js" defer></script>
     <script src="reset-data.js" defer></script>
+    <script src="result-panel.js" defer></script>
     <script src="undo.js" defer></script>
   </head>
   <body>
@@ -353,5 +354,20 @@
 
       <p class="message" id="message">Pick 4 colors, then check your guess.</p>
     </main>
+
+    <dialog class="result-panel" id="result-panel" aria-labelledby="result-title">
+      <span class="result-icon" id="result-icon" aria-hidden="true"></span>
+      <h2 id="result-title"></h2>
+      <p id="result-text"></p>
+      <p id="result-best"></p>
+      <div class="result-code" id="result-code">
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+      </div>
+      <button id="play-again-btn" autofocus>Play again</button>
+    </dialog>
+    <p class="visually-hidden" id="result-announcement" aria-live="polite"></p>
   </body>
 </html>

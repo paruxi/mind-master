@@ -23,6 +23,7 @@ function createFakeElement() {
     addEventListener: (type, handler) => {
       listeners[type] = handler;
     },
+    click: () => {},
     closest: () => null,
     querySelector: () => createFakeElement(),
     querySelectorAll: () => [],
