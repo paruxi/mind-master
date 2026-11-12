@@ -1,31 +1,44 @@
 /* ===== Variables ===== */
 :root {
-  /* peg colors */
-  --red: #e53935;
-  --blue: #1e88e5;
-  --green: #43a047;
-  --yellow: #fdd835;
-  --purple: #8e24aa;
-  --orange: #fb8c00;
+  /* peg colors (script.js paints pegs with var(--red) and so on) */
+  --red: #e5484d;
+  --blue: #4c84f2;
+  --green: #34a57a;
+  --yellow: #f0c03c;
+  --purple: #9a6fe6;
+  --orange: #f58a2e;
 
-  /* feedback colors */
-  --hit: #000000; /* right color, right spot */
-  --near: #ffffff; /* right color, wrong spot */
+  /* symbol color on each peg, so the symbol is readable on its color */
+  --red-ink: #ffffff;
+  --blue-ink: #ffffff;
+  --green-ink: #0b3a29;
+  --yellow-ink: #3a2a00;
+  --purple-ink: #ffffff;
+  --orange-ink: #3a1c00;
 
   /* ui colors */
-  --bg: #f2f2f2;
-  --board: #c9c4ba;
-  --hole: #7b7265;
-  --selectedHole: #4d483f;
-  --border: #333333;
-  --selectedBorder: #000000;
-  --active: #ffffff;
-  --text: #222222;
+  --bg: #0d1224;
+  --panel: #151b31;
+  --row-active: #212539;
+  --hole: #0b0f1d;
+  --hole-border: #1e243b;
+  --line: #2c3452;
+  --gold: #e3b866;
+  --gold-dim: #6e5d3a;
+  --text: #f5f1e6;
+  --muted: #8b92a8;
+  --faint: #4a5270;
+
+  /* feedback pegs */
+  --hit: var(--gold);
+  --near: #ffffff;
 
   /* sizes */
-  --peg-size: 32px;
-  --mini-size: 12px;
-  --gap: 8px;
+  --peg-size: 36px;
+  --mini-size: 13px;
+  --gap: 12px;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
 
 /* ===== Base ===== */
@@ -35,70 +48,208 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
-.game {
-  max-width: 360px;
-  margin: 20px auto;
-  padding: 10px;
-  text-align: center;
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
 }
 
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px 20px 32px;
+}
+
+.label {
+  display: block;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ===== Header ===== */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+h1 em {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 20px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.icon-btn:hover {
+  border-color: var(--gold-dim);
+}
+
+/* ===== How to play (opens from the ? button) ===== */
 .how-to-play {
-  margin-bottom: 10px;
-  padding: 6px 10px;
-  text-align: left;
-  font-size: 13px;
-  background: var(--board);
-  border: 2px solid var(--border);
+  max-width: 340px;
+  padding: 18px 20px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.how-to-play::backdrop {
+  background: rgba(5, 8, 18, 0.75);
 }
 
 .how-to-play h2 {
-  margin: 0 0 4px;
-  font-size: 14px;
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--gold);
 }
 
 .how-to-play ol {
   margin: 0;
-  padding-left: 18px;
+  padding-left: 20px;
 }
+
+.how-to-play li + li {
+  margin-top: 6px;
+}
+
+/* ===== Attempt counter and best score ===== */
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 22px;
+}
+
 #attemptMessage {
-  padding-bottom: 15px;
-  font-weight: 600;
+  font-size: 15px;
+  color: var(--muted);
 }
+
+.attempt-count {
+  display: block;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--text);
+}
+
+#attemptsNumber {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 #bestScore {
-  color: #1005ac;
-  padding-bottom: 20px;
-  font-size: medium;
+  text-align: right;
 }
+
+#scoreCounter {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* script.js colors these messages with plain "green" and "red", which are hard to read on dark */
+#attemptMessage[style*="green"] {
+  color: #7fd9a6 !important;
+}
+#attemptMessage[style*="red"],
+#message[style*="red"] {
+  color: #ff8d8d !important;
+}
+
+.progress {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.progress-step {
+  height: 5px;
+  border-radius: 3px;
+  background: #272e47;
+}
+.progress-step.done {
+  background: var(--gold);
+}
+.progress-step.current {
+  background: var(--text);
+}
+
 /* ===== Pegs ===== */
 .peg {
   width: var(--peg-size);
   height: var(--peg-size);
   border-radius: 50%;
   background: var(--hole);
-  border: 2px solid var(--border);
+  border: 1px solid var(--hole-border);
 }
-.selected-peg {
-  width: var(--peg-size);
-  height: var(--peg-size);
-  border-radius: 50%;
-  background: var(--selectedHole);
-  border: 3px solid var(--selectedBorder);
+
+/* The slot you are about to fill: only the row being played shows it. */
+.row.active .selected-peg {
+  border: 2px dashed var(--gold);
 }
 
 .mini {
   width: var(--mini-size);
   height: var(--mini-size);
   border-radius: 50%;
-  background: var(--hole);
-  border: 1px solid var(--border);
+  background: #262d45;
 }
 
-/* color classes JS will add */
+/* color classes JS adds (the revealed secret code) */
 .red {
   background: var(--red);
 }
@@ -118,51 +269,94 @@ body {
   background: var(--orange);
 }
 
-.hit {
+.mini.hit {
   background: var(--hit);
 }
-.near {
-  background: var(--near);
-}
-
-.hidden {
-  background: var(--border);
+.mini.near {
+  background: transparent;
+  border: 2px solid var(--near);
 }
 
 /* ===== Secret row ===== */
 .secret {
   display: flex;
-  justify-content: center;
-  gap: var(--gap);
-  padding: 10px;
-  margin-bottom: 10px;
-  background: var(--board);
-  border: 2px solid var(--border);
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 22px;
+  padding: 14px 16px;
+  background: var(--panel);
+  border-radius: 22px;
+}
+
+.secret-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.secret-pegs {
+  display: flex;
+  gap: 10px;
+}
+
+.secret .peg {
+  width: 36px;
+  height: 36px;
+}
+
+.secret .peg.hidden {
+  background: var(--hole);
+  border: 1.5px solid var(--gold-dim);
+}
+
+.secret .peg.hidden::after {
+  content: "?";
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
 }
 
 /* ===== Board ===== */
 .board {
   display: flex;
-  flex-direction: column-reverse; /* row 1 at bottom */
+  flex-direction: column; /* row 1 at the top */
   gap: 4px;
-  padding: 10px;
-  background: var(--board);
-  border: 2px solid var(--border);
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--panel);
+  border-radius: 26px;
 }
 
 .row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 4px;
+  gap: 14px;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 18px;
 }
 
 .row.active {
-  outline: 2px solid var(--active);
+  background: var(--row-active);
+  border-color: var(--gold-dim);
 }
 
 .row-num {
-  width: 24px;
+  width: 22px;
+  font-size: 17px;
+  color: var(--faint);
+}
+
+.row:has(.peg[data-color]) .row-num {
+  color: var(--muted);
+}
+
+.row.active .row-num {
+  color: var(--gold);
+  font-weight: 600;
 }
 
 .guess {
@@ -171,25 +365,68 @@ body {
 }
 
 .feedback {
+  margin-left: auto;
   display: grid;
   grid-template-columns: repeat(2, var(--mini-size));
-  gap: 3px;
+  gap: 6px;
+}
+
+/* rows still to play are dimmed */
+.row:not(.active):not(:has(.peg[data-color])) .peg {
+  opacity: 0.55;
+}
+.row:not(.active):not(:has(.peg[data-color])) .mini {
+  opacity: 0.5;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.legend-dot.hit {
+  background: var(--hit);
+}
+.legend-dot.near {
+  border: 2px solid var(--near);
 }
 
 /* ===== Palette ===== */
 .palette {
   display: flex;
-  justify-content: center;
-  gap: var(--gap);
-  margin: 15px 0;
+  justify-content: space-between;
+  margin-top: 34px;
 }
 
 .color-btn {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
   border-radius: 50%;
-  border: 2px solid var(--border);
-  cursor: pointer;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.4),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.18);
+}
+
+.color-btn:active {
+  transform: translateY(1px);
 }
 
 .color-btn[data-color="red"] {
@@ -214,24 +451,45 @@ body {
 /* ===== Controls ===== */
 .controls {
   display: flex;
-  justify-content: center;
-  gap: var(--gap);
+  gap: 14px;
+  margin-top: 22px;
 }
 
 .controls button {
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  font-size: 17px;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 26px;
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+#undo-btn {
+  padding: 0 24px;
+}
+
+#submit-btn {
+  flex: 1;
+  font-size: 19px;
+  color: var(--gold);
+  background: #28221a;
+  border-color: var(--gold-dim);
+}
+
+#submit-btn:hover {
+  background: #31291d;
 }
 
 .message {
-  min-height: 20px;
-  font-weight: bold;
+  min-height: 22px;
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 15px;
+  color: var(--muted);
 }
 
 /* ===== Symbols for colorblind players ===== */
@@ -244,44 +502,43 @@ button:disabled {
 
 .peg::after,
 .color-btn::after {
-  color: #ffffff;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1;
-  text-shadow: 0 0 2px #000000;
 }
 
 .peg[data-color="red"]::after,
 .peg.red::after,
 .color-btn[data-color="red"]::after {
   content: "▲";
+  color: var(--red-ink);
 }
-
 .peg[data-color="blue"]::after,
 .peg.blue::after,
 .color-btn[data-color="blue"]::after {
   content: "■";
+  color: var(--blue-ink);
 }
-
 .peg[data-color="green"]::after,
 .peg.green::after,
 .color-btn[data-color="green"]::after {
   content: "●";
+  color: var(--green-ink);
 }
-
 .peg[data-color="yellow"]::after,
 .peg.yellow::after,
 .color-btn[data-color="yellow"]::after {
   content: "★";
+  color: var(--yellow-ink);
 }
-
 .peg[data-color="purple"]::after,
 .peg.purple::after,
 .color-btn[data-color="purple"]::after {
   content: "◆";
+  color: var(--purple-ink);
 }
-
 .peg[data-color="orange"]::after,
 .peg.orange::after,
 .color-btn[data-color="orange"]::after {
   content: "✚";
+  color: var(--orange-ink);
 }
