@@ -52,6 +52,8 @@ function startGame() {
     },
     { signal: clickController.signal },
   )
+  game.currentRow.querySelector(".peg").click()
+
   if (bestScore !== null) {
     scoreCounter.textContent = `Won with ${bestScore} attempts`
   }
