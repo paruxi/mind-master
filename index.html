@@ -13,6 +13,7 @@
     <script src="attempt-progress.js" defer></script>
     <script src="game-flow.js" defer></script>
     <script src="new-game.js" defer></script>
+    <script src="reset-data.js" defer></script>
     <script src="undo.js" defer></script>
   </head>
   <body>
@@ -29,6 +30,27 @@
             aria-label="How to play"
           >
             ?
+          </button>
+          <button
+            class="icon-btn"
+            id="reset-data-btn"
+            aria-label="Reset game and clear saved data"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 6h18" />
+              <path d="M8 6V4h8v2" />
+              <path d="M19 6l-1 14H6L5 6" />
+            </svg>
           </button>
           <button class="icon-btn" id="new-game-btn" aria-label="New game">
             <svg
