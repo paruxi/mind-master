@@ -47,8 +47,23 @@ body {
   text-align: center;
 }
 
-.rules {
+.how-to-play {
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 13px;
+  background: var(--board);
+  border: 2px solid var(--border);
+}
+
+.how-to-play h2 {
+  margin: 0 0 4px;
   font-size: 14px;
+}
+
+.how-to-play ol {
+  margin: 0;
+  padding-left: 18px;
 }
 #attemptMessage {
   padding-bottom: 15px;
