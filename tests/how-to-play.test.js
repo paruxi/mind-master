@@ -4,7 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
-const box = html.match(/<section class="how-to-play">([\s\S]*?)<\/section>/)[1];
+const box = html.match(/<section class="how-to-play"[^>]*>([\s\S]*?)<\/section>/)[1];
 const lines = [...box.matchAll(/<li>([\s\S]*?)<\/li>/g)].map((match) => match[1]);
 
 describe("How to play box", () => {
