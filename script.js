@@ -81,6 +81,11 @@ palette.addEventListener("click", function (event) {
   const index = Number(game.selectedPeg.dataset.slot)
   game.currentGuess[index] = color
   console.log("index:", index, "guess:", game.currentGuess)
+
+  const rowPegs = [...game.currentRow.querySelectorAll(".peg")]
+  const selectedPegIndex = rowPegs.indexOf(game.selectedPeg)
+  const nextIndex = (selectedPegIndex + 1) % rowPegs.length // circular
+  rowPegs[nextIndex].click()
 })
 
 submit.addEventListener("click", function (event) {
