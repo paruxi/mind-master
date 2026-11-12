@@ -322,7 +322,7 @@ h1 em {
 /* ===== Board ===== */
 .board {
   display: flex;
-  flex-direction: column; /* row 1 at the top */
+  flex-direction: column-reverse; /* row 1 at the bottom */
   gap: 4px;
   margin-top: 16px;
   padding: 12px;
