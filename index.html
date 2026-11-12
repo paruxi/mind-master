@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mastermind</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <main class="game">
@@ -14,9 +15,11 @@
         White peg = right color, wrong spot.
       </p>
       <div id="attemptMessage">
-        You played <span id="attemptsNumber"> 0 </span> /10 of your attempts
+        Attempt <span id="attemptsNumber"> 1 </span> /10
       </div>
-      <div id="bestScore">🏅Best Score: No score yet</div>
+      <div id="bestScore">
+        🏅Best Score: <span id="scoreCounter">No score yet</span>
+      </div>
       <!-- Secret code: hidden until game ends -->
       <section class="secret" id="secret">
         <div class="peg hidden"></div>
@@ -214,7 +217,5 @@
 
       <p class="message" id="message">Pick 4 colors, then check your guess.</p>
     </main>
-
-    <script src="script.js"></script>
   </body>
 </html>
