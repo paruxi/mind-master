@@ -12,7 +12,7 @@ function setUp() {
   const page = createFakePage();
 
   const functions = loadBrowserFile(
-    ["feedback.js", "game-status.js", "board.js", "game-flow.js"],
+    ["feedback.js", "game-status.js", "board.js", "attempt-progress.js", "game-flow.js"],
     ["gradeLatestGuess", "blockInputAfterGameEnd"],
     { game, document: page.document, codeColors: COLORS },
   );
@@ -67,6 +67,18 @@ describe("gradeLatestGuess()", () => {
     gradeLatestGuess();
 
     assert.equal(game.feedback.length, 1);
+  });
+
+  it("moves the progress bar and the lit row on after a guess", () => {
+    const { storeGuess, gradeLatestGuess, progressSteps, rows } = setUp();
+    storeGuess(WRONG);
+
+    gradeLatestGuess();
+
+    assert.ok(progressSteps[0].classList.contains("done"));
+    assert.ok(progressSteps[1].classList.contains("current"));
+    assert.ok(rows[1].classList.contains("active"));
+    assert.ok(!rows[0].classList.contains("active"));
   });
 
   it("keeps the secret code hidden during the game", () => {
