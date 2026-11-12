@@ -47,8 +47,23 @@ body {
   text-align: center;
 }
 
-.rules {
+.how-to-play {
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 13px;
+  background: var(--board);
+  border: 2px solid var(--border);
+}
+
+.how-to-play h2 {
+  margin: 0 0 4px;
   font-size: 14px;
+}
+
+.how-to-play ol {
+  margin: 0;
+  padding-left: 18px;
 }
 #attemptMessage {
   padding-bottom: 15px;
@@ -217,4 +232,56 @@ button:disabled {
 .message {
   min-height: 20px;
   font-weight: bold;
+}
+
+/* ===== Symbols for colorblind players ===== */
+.peg,
+.color-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.peg::after,
+.color-btn::after {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+  text-shadow: 0 0 2px #000000;
+}
+
+.peg[data-color="red"]::after,
+.peg.red::after,
+.color-btn[data-color="red"]::after {
+  content: "▲";
+}
+
+.peg[data-color="blue"]::after,
+.peg.blue::after,
+.color-btn[data-color="blue"]::after {
+  content: "■";
+}
+
+.peg[data-color="green"]::after,
+.peg.green::after,
+.color-btn[data-color="green"]::after {
+  content: "●";
+}
+
+.peg[data-color="yellow"]::after,
+.peg.yellow::after,
+.color-btn[data-color="yellow"]::after {
+  content: "★";
+}
+
+.peg[data-color="purple"]::after,
+.peg.purple::after,
+.color-btn[data-color="purple"]::after {
+  content: "◆";
+}
+
+.peg[data-color="orange"]::after,
+.peg.orange::after,
+.color-btn[data-color="orange"]::after {
+  content: "✚";
 }
