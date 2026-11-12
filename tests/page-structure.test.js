@@ -18,7 +18,7 @@ describe("index.html", () => {
   });
 
   it("loads the files in the order they depend on each other", () => {
-    const order = ["feedback.js", "game-status.js", "board.js", "attempt-progress.js", "game-flow.js", "new-game.js", "undo.js"];
+    const order = ["feedback.js", "game-status.js", "board.js", "attempt-progress.js", "game-flow.js", "new-game.js", "reset-data.js", "result-panel.js", "undo.js"];
     const positions = order.map((file) => scripts.indexOf(file));
 
     assert.ok(positions.every((position) => position > 0), "a game file is not loaded");

@@ -46,6 +46,7 @@ function startGame() {
   game.guesses = []
   game.currentGuess = []
   game.status = "playing"
+  game.newBest = false
   game.currentRow = document.querySelector('div.row[data-row="0"]')
   game.currentRow.addEventListener(
     "click",
@@ -152,6 +153,8 @@ function handleAttempts() {
     attemptMessage.textContent = `Nice Job! You solved it in ${score} attempts`
     attemptMessage.style.color = "green"
     if (score < bestScore || bestScore === null) {
+      game.newBest = true
+      bestScore = score
       localStorage.setItem(BEST_SCORE_KEY, JSON.stringify(score))
       scoreCounter.textContent = `Won with ${score} attempts`
     }
