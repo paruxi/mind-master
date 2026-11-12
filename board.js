@@ -61,3 +61,16 @@ function renderSecret() {
     }
   })
 }
+
+// Empties every row: the guess colors, the selected slot and the feedback pegs.
+function clearBoard() {
+  document.querySelectorAll(".row").forEach((row) => {
+    row.querySelectorAll(".guess .peg").forEach((peg) => {
+      peg.style.background = ""
+      delete peg.dataset.color
+      peg.classList.remove("selected-peg")
+    })
+
+    row.querySelectorAll(".feedback .mini").forEach((mini) => setFeedbackPeg(mini, ""))
+  })
+}

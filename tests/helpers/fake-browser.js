@@ -10,6 +10,10 @@ function createFakeElement() {
     listeners,
     style: {},
     textContent: "",
+    children: [],
+    replaceChildren(...nodes) {
+      this.children = nodes;
+    },
     classList: {
       add: (name) => classes.add(name),
       remove: (name) => classes.delete(name),
