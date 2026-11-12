@@ -2,6 +2,8 @@ const codeColors = ["red", "blue", "green", "yellow", "purple", "orange"]
 
 const CODE_LENGTH = 4
 
+const BEST_SCORE_KEY = "bestScore"
+
 // All the data for the current game lives in this one object.
 const game = {
   secretCode: [],
@@ -150,7 +152,7 @@ function handleAttempts() {
     attemptMessage.textContent = `Nice Job! You solved it in ${score} attempts`
     attemptMessage.style.color = "green"
     if (score < bestScore || bestScore === null) {
-      localStorage.setItem("bestScore", JSON.stringify(score))
+      localStorage.setItem(BEST_SCORE_KEY, JSON.stringify(score))
       scoreCounter.textContent = `Won with ${score} attempts`
     }
     return
@@ -171,7 +173,7 @@ function handleAttempts() {
   }
 }
 
-let bestScore = JSON.parse(localStorage.getItem("bestScore"))
+let bestScore = JSON.parse(localStorage.getItem(BEST_SCORE_KEY))
 
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
 startGame()
