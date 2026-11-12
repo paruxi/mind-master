@@ -64,7 +64,13 @@ function createFakePage() {
 
   const elementsById = {};
 
+  const documentListeners = {};
+
   const document = {
+    listeners: documentListeners,
+    addEventListener: (type, handler) => {
+      documentListeners[type] = handler;
+    },
     querySelector: (selector) => {
       const match = selector.match(/data-row="(\d+)"/);
       return match ? rows[Number(match[1])] : null;
