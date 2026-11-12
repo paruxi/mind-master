@@ -16,10 +16,16 @@
   <body>
     <main class="game">
       <h1>Mastermind</h1>
-      <p class="rules">
-        Guess the 4-color code in 10 tries. Black peg = right color, right spot.
-        White peg = right color, wrong spot.
-      </p>
+      <section class="how-to-play">
+        <h2>How to play</h2>
+        <ol>
+          <li>Crack the secret code: 4 colors from red, blue, green, yellow, purple and orange.</li>
+          <li>Click a slot in the lit row, then click a color. Undo clears the last color.</li>
+          <li>Press "Check guess" to get clues in the small pegs.</li>
+          <li>Black peg: right color, right spot. White peg: right color, wrong spot.</li>
+          <li>Colors can repeat. You have 10 attempts.</li>
+        </ol>
+      </section>
       <div id="attemptMessage">
         Attempt <span id="attemptsNumber"> 1 </span> /10
       </div>
