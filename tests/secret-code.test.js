@@ -7,8 +7,7 @@
 
 const { describe, it, beforeEach, afterEach } = require("node:test");
 const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const path = require("node:path");
+const { loadScript } = require("./helpers/load-script");
 
 // The 6 colors the game is allowed to use.
 // The tests keep their own copy, so they check the real rule, not just whatever script.js says.
@@ -17,24 +16,8 @@ const ALLOWED_COLORS = ["red", "blue", "green", "yellow", "purple", "orange"];
 // The secret code must always have 4 positions.
 const EXPECTED_CODE_LENGTH = 4;
 
-// script.js lives one folder up from this test file.
-const scriptPath = path.join(__dirname, "..", "script.js");
-const scriptSource = fs.readFileSync(scriptPath, "utf8");
-
 // Math.random() as it was before any test changed it.
 const realMathRandom = Math.random;
-
-// Load a fresh copy of script.js, so every test starts with a new game.
-// script.js is written as a normal browser script, so we wrap it in a function
-// and return the parts the tests need.
-function loadScript() {
-  return new Function(
-    scriptSource +
-      `
-      return { generateSecretCode, startGame, game };
-      `,
-  )();
-}
 
 // Replace Math.random() with a fixed list of numbers, so results are predictable.
 // Each call to Math.random() uses the next number in the list.
