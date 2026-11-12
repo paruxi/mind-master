@@ -120,6 +120,8 @@ function startNextRow() {
   // move row
   const rowNumber = getCurrentRowNumber()
   const nextRow = document.querySelector(`div.row[data-row="${rowNumber}"]`)
+  // After the last attempt there is no next row.
+  if (!nextRow) return
   game.currentRow = nextRow
   game.currentRow.addEventListener(
     "click",
@@ -176,7 +178,17 @@ function handleAttempts() {
   }
 }
 
-let bestScore = JSON.parse(localStorage.getItem(BEST_SCORE_KEY))
+// Returns the saved best score, or null when nothing valid is saved.
+function loadBestScore() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(BEST_SCORE_KEY))
+    return Number.isInteger(saved) && saved > 0 ? saved : null
+  } catch (error) {
+    return null
+  }
+}
+
+let bestScore = loadBestScore()
 
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
 startGame()
