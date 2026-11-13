@@ -64,28 +64,23 @@ function startGame() {
 
 function onClickCurrentRow(event) {
   const choice = event.target.closest(".peg")
-  console.log("choice:", choice)
   if (!choice) return
   const rowPegs = game.currentRow.querySelectorAll(".peg")
   rowPegs.forEach((el) => el.classList.remove("selected-peg"))
   choice.classList.toggle("selected-peg")
   game.selectedPeg = choice
-  console.log(choice.dataset.slot)
 }
 
 palette.addEventListener("click", function (event) {
   const colorPicker = event.target.closest(".color-btn")
   if (!colorPicker) return
   if (!game.selectedPeg) return
-  console.log(colorPicker.dataset.color)
   const color = colorPicker.dataset.color
 
   game.selectedPeg.style.background = `var(--${color})`
   game.selectedPeg.dataset.color = color
-  console.log(color)
   const index = Number(game.selectedPeg.dataset.slot)
   game.currentGuess[index] = color
-  console.log("index:", index, "guess:", game.currentGuess)
 
   const rowPegs = [...game.currentRow.querySelectorAll(".peg")]
   const selectedPegIndex = rowPegs.indexOf(game.selectedPeg)
@@ -95,17 +90,14 @@ palette.addEventListener("click", function (event) {
 
 submit.addEventListener("click", function (event) {
   event.preventDefault()
-  console.log("currentguess:", game.currentGuess)
   if (game.currentGuess.includes(undefined) || game.currentGuess.length !== 4) {
     message.textContent = "Pick all 4 colors before check!"
     message.style.color = "red"
-    console.log("error")
     return
   }
   message.textContent = "Pick 4 colors, then check your guess."
   message.style.color = ""
   game.guesses.push(game.currentGuess)
-  console.log(game.guesses)
   handleAttempts()
   startNextRow()
 })
@@ -165,8 +157,6 @@ function handleAttempts() {
   }
 
   if (currentAttemptNumber === 11 && game.currentGuess != game.secretCode) {
-    console.log("test:", game.currentGuess)
-    console.log(game.secretCode)
     attemptMessage.textContent = "You lost!"
     attemptMessage.style.color = "red"
     return
@@ -192,4 +182,3 @@ let bestScore = loadBestScore()
 
 // Start the first round as soon as the page loads. later on we will call this function when the user clicks the start/reset button.
 startGame()
-console.log(game.secretCode)
